@@ -1,0 +1,30 @@
+{
+  "name": "my-app",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon --inspect index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/trantankha/my-app.git"
+  },
+  "keywords": [
+    "nodejs",
+    "express"
+  ],
+  "author": "tinmyn",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/trantankha/my-app/issues"
+  },
+  "homepage": "https://github.com/trantankha/my-app#readme",
+  "description": "��#\u0000 \u0000m\u0000y\u0000-\u0000a\u0000p\u0000p\u0000\r\u0000 \u0000",
+  "dependencies": {
+    "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  }
+}
