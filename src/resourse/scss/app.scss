@@ -1,0 +1,22 @@
+@use 'base' as *;
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    color: #fff;
+    font-weight: 800;
+    text-align: center;
+}
+
+h2 {
+    font-weight: $style-bold;
+    color: $yellow-color;
+    font-style: italic;
+    transition: 0.3s ease;
+}
+
+h2:hover {
+    color: green;
+    transform: scale(1.1);
+}
