@@ -17,7 +17,7 @@ app.engine('hbs', engine({
     extname: '.hbs'
 }));
 app.set('view engine', 'hbs')
-app.set('views', path.join(__dirname, 'resourse/views'))
+app.set('      views', path.join(__dirname, 'resourse/views'))
 //Cấu hình điều hướng
 routeInit(app)
 //Kết nối server
