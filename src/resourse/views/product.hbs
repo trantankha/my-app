@@ -1,5 +1,9 @@
 {{!--Button submit sẽ lấy các value của các key(thuộc tính "name") trong thẻ input và đưa vào thanh url
-Ví dụ: http://localhost:3000/product?email=abc%40gmail.com&pswd=123&remember=on --}}
+// method="post" sẽ không hiển thị các giá trị trên thanh url
+Ví dụ: http://localhost:3000/product?email=abc%40gmail.com&pswd=123&remember=on
+Để lấy dữ liệu trên thanh url, ta sử dụng req.query.email, req.query.pswd, req.query.remember
+Để lấy dữ liệu từ form, ta sử dụng req.body.email, req.body.pswd, req.body.remember--}}
+
 <div class="container mt-3">
     <h2>Stacked form</h2>
     <form method="post" action="">

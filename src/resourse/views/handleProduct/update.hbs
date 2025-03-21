@@ -1,0 +1,28 @@
+<div class="container">
+    <h2 class="mt-2">Danh sách sản phẩm</h2>
+    <table class="table table-bordered mt-4">
+        <thead>
+            <tr>
+                <th>Number</th>
+                <th>Name Product</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Setting</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each products}}
+            <tr>
+                <td>#{{sum @index 1}}</td>
+                <td>{{this.name}}</td>
+                <td>{{this.price}}</td>
+                <td>{{this.quantity}}</td>
+                <td>
+                    <a href="/product/{{this._id}}/edit" class="btn btn-link text-warning">Update</a href="#">
+                    <a href="#" class="btn btn-link text-danger">Delete</a href="#">
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>

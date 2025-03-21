@@ -9,14 +9,13 @@
     text-align: center;
 }
 
-h2 {
-    font-weight: $style-bold;
-    color: $red-color;
-    font-style: italic;
-    transition: 0.3s ease;
+.card .card-body .card-text {
+    font-size: 20px;
+    font-weight: 500;
+    text-decoration: none;
+    color: #000;
 }
 
-h2:hover {
-    color: green;
-    transform: scale(1.1);
+.card .card-body .card-text:hover {
+    color: $green-color;
 }

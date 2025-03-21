@@ -1,1 +1,19 @@
-<h2>Đây là trang chủ</h2>
+<div class="mt-4">
+    <div class="row">
+        {{#each products}}
+        <div class="col-sm-3">
+            <div class="card">
+                <a href="/information/{{this.slug}}">
+                    <img class="card-img-top" src="{{this.image}}" alt="Card image" style="width:100%">
+                </a>
+                <div class="card-body">
+                    <h4 class="card-title">{{this.trademark}}</h4>
+                    <a href="/information/{{this.slug}}" class="card-text">{{this.name}}</a>
+                    <p class="my-2 text-danger">{{this.price}}VNĐ</p>
+                    <a href="#" class="btn btn-primary">Add to cart</a>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+</div>
