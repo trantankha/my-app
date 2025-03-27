@@ -1,0 +1,84 @@
+<div class="container mt-3">
+    <div>
+        <h2>My trash</h2>
+        <a href="/product/update" class="text-primary nav-link">Go back</a>
+    </div>
+    <table class="table table-bordered mt-4">
+        <thead>
+            <tr>
+                <th>Number</th>
+                <th>Name Product</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Setting</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each products}}
+            <tr>
+                <td>#{{sum @index 1}}</td>
+                <td>{{this.name}}</td>
+                <td>{{this.price}}</td>
+                <td>{{this.quantity}}</td>
+                <td>
+                    <a href="" class="btn btn-link text-warning btn-restore" data-id="{{this._id}}">Undo</a>
+                    <a href="#" class="btn btn-link text-danger" data-bs-toggle="modal" data-bs-target="#myModal"
+                        data-id="{{this._id}}">Remove</a>
+                </td>
+            </tr>
+            {{else}}
+            <tr>
+                <td colspan="5" class="text-center">No one product in there.
+                    <a href="/product/update">Turn back</a>
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>
+{{!-- Hộp thoại thông báo xóa sản phẩm --}}
+<div class="modal modal-fade" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title text-primary">Message</h4>
+            </div>
+            <div class="modal-body">
+                <p class="text-secondary m-0">Are you sure you want to delete this product anywhere ?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" id="btn-ok">Accept</button>
+                <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $('#myModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget);
+        var id = button.data('id');
+        var modal = $(this);
+        modal.find('.modal-body .text-secondary').text('Do you want to delete product ' + id + ' ?');
+        modal.find('#btn-ok').click(function () {
+            $.ajax({
+                url: '/product/' + id + '/remove',
+                type: 'DELETE',
+                success: function (result) {
+                    window.location.reload();
+                }
+            });
+        });
+    });
+    $('.btn-restore').on('click', function (event) {
+        event.preventDefault();
+        var id = $(this).data('id');
+        $.ajax({
+            url: '/product/' + id + '/restore',
+            type: 'PATCH',
+            success: function (result) {
+                window.location.reload();
+            }
+        });
+    });
+</script>

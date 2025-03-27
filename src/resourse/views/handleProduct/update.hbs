@@ -1,9 +1,27 @@
-<div class="container">
-    <h2 class="mt-2">Danh sách sản phẩm</h2>
-    <table class="table table-bordered mt-4">
+<form name="container-form" action="/product/handleEffect" class="container mt-3" method="post" id="myForm">
+    <div>
+        <h2 class="m-0">List products</h2>
+        <a href="/product/trash" class="text-primary nav-link">Trash can
+            <span id="countDeleted">({{deletedCount}})</span>
+        </a>
+    </div>
+    <div class="d-flex align-items-center mt-3">
+        <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="checkAll">
+            <label class="form-check-label" for="checkAll">Select all</label>
+        </div>
+        <select class="form-select form-select-sm" id="select-item-product" name="action" required>
+            <option value="">-- Choose action --</option>
+            <option value="Remove">Remove now</option>
+            <option value="Delete">Delete soft</option>
+        </select>
+        <button type="submit" class="btn btn-dark text-warning disabled" id="btn-effect">Effect</button>
+    </div>
+    <table class="table table-bordered mt-2">
         <thead>
             <tr>
-                <th>Number</th>
+                <th>##</th>
+                <th>Index</th>
                 <th>Name Product</th>
                 <th>Price</th>
                 <th>Quantity</th>
@@ -13,16 +31,80 @@
         <tbody>
             {{#each products}}
             <tr>
+                <td>
+                    <input type="checkbox" class="form-check-input" value="{{this._id}}" name="productID[]">
+                </td>
                 <td>#{{sum @index 1}}</td>
                 <td>{{this.name}}</td>
                 <td>{{this.price}}</td>
                 <td>{{this.quantity}}</td>
                 <td>
-                    <a href="/product/{{this._id}}/edit" class="btn btn-link text-warning">Update</a href="#">
-                    <a href="#" class="btn btn-link text-danger">Delete</a href="#">
+                    <a href="/product/{{this._id}}/edit" class="btn btn-link text-warning">Update</a>
+                    <a href="#" class="btn btn-link text-danger" data-bs-toggle="modal" data-bs-target="#myModal"
+                        data-id="{{this._id}}">Delete</a>
+                </td>
+            </tr>
+            {{else}}
+            <tr>
+                <td colspan="5" class="text-center">No product in your store.
+                    <a href="/product/create">Create now</a>
                 </td>
             </tr>
             {{/each}}
         </tbody>
     </table>
+</form>
+{{!-- Hộp thoại thông báo xóa sản phẩm --}}
+<div class="modal modal-fade" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title text-primary">Message</h4>
+            </div>
+            <div class="modal-body">
+                <p class="text-secondary m-0">Do you want to delete this product ?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" id="btn-ok">Accept</button>
+                <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
 </div>
+<script>
+    $('#myModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget);
+        var id = button.data('id');
+        var modal = $(this);
+        modal.find('.modal-body .text-secondary').text('Do you want to delete product ' + id + ' ?');
+        modal.find('#btn-ok').click(function () {
+            $.ajax({
+                url: '/product/' + id + '/delete',
+                type: 'DELETE',
+                success: function (result) {
+                    window.location.reload();
+                }
+            });
+        });
+    });
+    $('#checkAll').on('change', function () {
+        $('input[name="productID[]"]').prop('checked', $(this).prop('checked'));
+        toggleEffectButton();
+    })
+    $('input[name="productID[]"]').on('change', function () {
+        var allChecked = $('input[name="productID[]"]:checked').length === $('input[name="productID[]"]').length;
+        $('#checkAll').prop('checked', allChecked);
+        toggleEffectButton();
+    })
+
+    function toggleEffectButton() {
+        var countChecked = $('input[name="productID[]"]:checked').length
+        if (countChecked > 0) {
+            $('#btn-effect').removeClass('disabled');
+        } else {
+            $('#btn-effect').addClass('disabled');
+        }
+    }
+    console.log($('#myForm').attr('name'));
+</script>
