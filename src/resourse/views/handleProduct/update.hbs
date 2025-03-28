@@ -22,8 +22,8 @@
             <tr>
                 <th>##</th>
                 <th>Index</th>
-                <th>Name Product</th>
-                <th>Price</th>
+                <th>{{{sortable 'Name Product' 'name' _sort}}}</th>
+                <th>{{{sortable 'Price' 'price' _sort}}}</th>
                 <th>Quantity</th>
                 <th>Setting</th>
             </tr>
@@ -106,5 +106,4 @@
             $('#btn-effect').addClass('disabled');
         }
     }
-    console.log($('#myForm').attr('name'));
 </script>

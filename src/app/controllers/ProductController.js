@@ -21,14 +21,26 @@ class ProductController {
     }
     // [GET] /product/show
     async showAll(req, res, next) {
-        Promise.all([Product.find({}), Product.countDocumentsWithDeleted({ deleted: true })])
-            .then(([products, deletedCount]) => {
-                res.render('handleProduct/update', {
-                    products: multipleMongooseToObject(products),
-                    deletedCount
+        //Truyền đúng field trong Schema ví dụ trường name, price, quantity
+        try {
+            let productQuery = Product.find({})
+            if (req.query.hasOwnProperty('_sort')) {
+                productQuery = productQuery.sort({
+                    [req.query.column]: req.query.type
                 })
+            }
+            const [products, deletedCount] = await Promise.all([
+                productQuery,
+                Product.countDocumentsWithDeleted({ deleted: true }),
+            ])
+            res.render('handleProduct/update', {
+                products: multipleMongooseToObject(products),
+                deletedCount
             })
-            .catch(next);
+        } catch (err) {
+            next(err)
+        }
+
     }
     // [GET] /product/:id/edit
     async editing(req, res, next) {

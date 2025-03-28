@@ -12,7 +12,6 @@ const ProductSchema = new Schema({
     parameters: { type: String, maxLength: 255 },
     image: { type: String, maxLength: 255 },
     slug: { type: String, slug: 'name', unique: true },
-    // deleted: { type: Boolean, default: false }
 }, {
     timestamps: true,
     collection: 'Product'
