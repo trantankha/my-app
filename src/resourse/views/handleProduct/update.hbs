@@ -21,7 +21,8 @@
         <thead>
             <tr>
                 <th>##</th>
-                <th>Index</th>
+                <th>ID</th>
+                {{!-- Truyền đúng field trong Schema ví dụ name, price --}}
                 <th>{{{sortable 'Name Product' 'name' _sort}}}</th>
                 <th>{{{sortable 'Price' 'price' _sort}}}</th>
                 <th>Quantity</th>
@@ -34,7 +35,7 @@
                 <td>
                     <input type="checkbox" class="form-check-input" value="{{this._id}}" name="productID[]">
                 </td>
-                <td>#{{sum @index 1}}</td>
+                <td>{{this._id}}</td>
                 <td>{{this.name}}</td>
                 <td>{{this.price}}</td>
                 <td>{{this.quantity}}</td>

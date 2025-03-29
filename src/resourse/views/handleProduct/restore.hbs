@@ -6,7 +6,7 @@
     <table class="table table-bordered mt-4">
         <thead>
             <tr>
-                <th>Number</th>
+                <th>ID</th>
                 <th>Name Product</th>
                 <th>Price</th>
                 <th>Quantity</th>
@@ -16,7 +16,7 @@
         <tbody>
             {{#each products}}
             <tr>
-                <td>#{{sum @index 1}}</td>
+                <td>{{this._id}}</td>
                 <td>{{this.name}}</td>
                 <td>{{this.price}}</td>
                 <td>{{this.quantity}}</td>
